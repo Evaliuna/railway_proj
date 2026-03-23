@@ -1,0 +1,658 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>নিবন্ধন | Bangladesh Railway</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Inter', sans-serif;
+            background: linear-gradient(135deg, #f0f2f5 0%, #e8ecf1 100%);
+            min-height: 100vh;
+        }
+        
+        /* Header */
+        .header {
+            background: linear-gradient(135deg, #0b2b26 0%, #1a4d3e 50%, #0f2c26 100%);
+            position: relative;
+            overflow: hidden;
+            padding: 25px 0;
+        }
+        
+        .header::after {
+            content: '📝';
+            position: absolute;
+            bottom: 10px;
+            right: 20px;
+            font-size: 100px;
+            opacity: 0.05;
+            pointer-events: none;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 30px;
+        }
+        
+        /* Navbar */
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+        
+        .logo h1 {
+            color: white;
+            font-size: 1.5rem;
+            font-weight: 700;
+        }
+        
+        .logo p {
+            color: rgba(255,255,255,0.7);
+            font-size: 0.8rem;
+        }
+        
+        .nav-links {
+            display: flex;
+            gap: 15px;
+        }
+        
+        .nav-btn {
+            padding: 8px 20px;
+            border-radius: 10px;
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 0.9rem;
+        }
+        
+        .nav-btn-outline {
+            border: 1px solid rgba(255,255,255,0.3);
+            color: white;
+            background: rgba(255,255,255,0.1);
+        }
+        
+        .nav-btn-outline:hover {
+            background: rgba(255,255,255,0.2);
+            transform: translateY(-2px);
+        }
+        
+        /* Main Content */
+        .main-content {
+            padding: 60px 0;
+        }
+        
+        /* Registration Card */
+        .register-card {
+            max-width: 550px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 28px;
+            overflow: hidden;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+            animation: fadeInUp 0.6s ease;
+        }
+        
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        .card-header {
+            background: linear-gradient(135deg, #1a4d3e, #0b2b26);
+            color: white;
+            padding: 35px 30px;
+            text-align: center;
+        }
+        
+        .card-header h2 {
+            font-size: 1.8rem;
+            margin-bottom: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+        }
+        
+        .card-header p {
+            opacity: 0.85;
+            font-size: 0.95rem;
+        }
+        
+        .card-body {
+            padding: 35px 30px;
+        }
+        
+        /* Form Styles */
+        .form-group {
+            margin-bottom: 24px;
+        }
+        
+        label {
+            display: block;
+            font-size: 0.85rem;
+            font-weight: 600;
+            color: #1a2f2a;
+            margin-bottom: 8px;
+        }
+        
+        label i {
+            color: #1a4d3e;
+            width: 22px;
+            margin-right: 6px;
+        }
+        
+        .required-star {
+            color: #e74c3c;
+            margin-left: 3px;
+        }
+        
+        input {
+            width: 100%;
+            padding: 14px 16px;
+            border: 2px solid #e5e7eb;
+            border-radius: 14px;
+            font-size: 1rem;
+            transition: all 0.3s;
+            font-family: inherit;
+            background: white;
+        }
+        
+        input:focus {
+            outline: none;
+            border-color: #1a4d3e;
+            box-shadow: 0 0 0 3px rgba(26,77,62,0.1);
+        }
+        
+        .form-text {
+            font-size: 0.75rem;
+            color: #888;
+            margin-top: 6px;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+        
+        .form-text i {
+            font-size: 0.7rem;
+        }
+        
+        /* Password Strength */
+        .password-strength {
+            margin-top: 8px;
+        }
+        
+        .strength-bar {
+            height: 4px;
+            background: #e5e7eb;
+            border-radius: 4px;
+            overflow: hidden;
+            margin-top: 8px;
+        }
+        
+        .strength-fill {
+            height: 100%;
+            width: 0%;
+            transition: all 0.3s;
+            border-radius: 4px;
+        }
+        
+        .strength-text {
+            font-size: 0.7rem;
+            margin-top: 5px;
+        }
+        
+        /* Buttons */
+        .btn-register {
+            width: 100%;
+            background: linear-gradient(135deg, #1a4d3e, #0b2b26);
+            color: white;
+            border: none;
+            padding: 14px;
+            border-radius: 14px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            font-family: inherit;
+            margin-bottom: 15px;
+        }
+        
+        .btn-register:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px -5px rgba(26,77,62,0.4);
+        }
+        
+        .btn-back {
+            width: 100%;
+            background: #f8f9fa;
+            color: #666;
+            border: 2px solid #e5e7eb;
+            padding: 12px;
+            border-radius: 14px;
+            font-size: 0.95rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s;
+            text-decoration: none;
+            text-align: center;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+        
+        .btn-back:hover {
+            background: #fee2e2;
+            border-color: #e74c3c;
+            color: #e74c3c;
+        }
+        
+        /* Divider */
+        .divider {
+            text-align: center;
+            margin: 25px 0 20px;
+            position: relative;
+        }
+        
+        .divider::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 0;
+            right: 0;
+            height: 1px;
+            background: #e5e7eb;
+        }
+        
+        .divider span {
+            background: white;
+            padding: 0 15px;
+            position: relative;
+            color: #888;
+            font-size: 0.85rem;
+        }
+        
+        .guest-link {
+            text-align: center;
+            margin-top: 15px;
+        }
+        
+        .guest-link a {
+            color: #1a4d3e;
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.3s;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+        }
+        
+        .guest-link a:hover {
+            color: #f5a623;
+            transform: translateX(3px);
+        }
+        
+        /* Flash Messages */
+        .flash-messages {
+            margin-bottom: 20px;
+        }
+        
+        .alert {
+            padding: 14px 18px;
+            border-radius: 14px;
+            margin-bottom: 15px;
+            animation: slideIn 0.5s ease;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font-size: 0.9rem;
+        }
+        
+        .alert-success {
+            background: #d4edda;
+            color: #155724;
+            border-left: 4px solid #27ae60;
+        }
+        
+        .alert-danger {
+            background: #f8d7da;
+            color: #721c24;
+            border-left: 4px solid #e74c3c;
+        }
+        
+        .alert-warning {
+            background: #fff3cd;
+            color: #856404;
+            border-left: 4px solid #ffc107;
+        }
+        
+        @keyframes slideIn {
+            from {
+                transform: translateY(-20px);
+                opacity: 0;
+            }
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+        
+        /* Footer */
+        .footer {
+            background: #0a1f1b;
+            color: white;
+            padding: 30px 0 20px;
+            margin-top: 40px;
+        }
+        
+        .footer-bottom {
+            text-align: center;
+            padding-top: 20px;
+            border-top: 1px solid rgba(255,255,255,0.1);
+            color: rgba(255,255,255,0.6);
+            font-size: 0.85rem;
+        }
+        
+        /* Responsive */
+        @media (max-width: 768px) {
+            .container {
+                padding: 0 20px;
+            }
+            
+            .register-card {
+                margin: 0 10px;
+            }
+            
+            .card-header h2 {
+                font-size: 1.4rem;
+            }
+            
+            .card-header {
+                padding: 25px 20px;
+            }
+            
+            .card-body {
+                padding: 25px 20px;
+            }
+            
+            .navbar {
+                flex-direction: column;
+                text-align: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <div class="header">
+        <div class="container">
+            <div class="navbar">
+                <div class="logo">
+                    <h1><i class="fas fa-train"></i> বাংলাদেশ রেলওয়ে</h1>
+                    <p>Bangladesh Railway | ট্রেন টিকেট বুকিং সিস্টেম</p>
+                </div>
+                <div class="nav-links">
+                    <a href="/" class="nav-btn nav-btn-outline"><i class="fas fa-home"></i> হোম</a>
+                    <a href="/bookings" class="nav-btn nav-btn-outline"><i class="fas fa-ticket-alt"></i> আমার টিকেট</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Main Content -->
+    <div class="main-content">
+        <div class="container">
+            <div class="register-card">
+                <div class="card-header">
+                    <h2>
+                        <i class="fas fa-user-plus"></i>
+                        নতুন অ্যাকাউন্ট
+                    </h2>
+                    <p>Create your account to manage bookings easily</p>
+                </div>
+                <div class="card-body">
+                    <!-- Flash Messages -->
+                    {% with messages = get_flashed_messages(with_categories=true) %}
+                        {% if messages %}
+                            <div class="flash-messages">
+                                {% for category, message in messages %}
+                                    <div class="alert alert-{{ category }}">
+                                        <i class="fas fa-{{ 'check-circle' if category == 'success' else 'exclamation-triangle' if category == 'warning' else 'times-circle' }}"></i>
+                                        {{ message }}
+                                    </div>
+                                {% endfor %}
+                            </div>
+                        {% endif %}
+                    {% endwith %}
+                    
+                    <!-- Registration Form -->
+                    <form method="POST" id="registerForm">
+                        <div class="form-group">
+                            <label>
+                                <i class="fas fa-user"></i> পূর্ণ নাম | Full Name 
+                                <span class="required-star">*</span>
+                            </label>
+                            <input type="text" name="fullname" required 
+                                   placeholder="আপনার পূর্ণ নাম লিখুন | Enter your full name">
+                        </div>
+                        
+                        <div class="form-group">
+                            <label>
+                                <i class="fas fa-at"></i> ইমেইল | Email Address
+                            </label>
+                            <input type="email" name="email" 
+                                   placeholder="youremail@example.com">
+                            <div class="form-text">
+                                <i class="fas fa-info-circle"></i>
+                                আপনার টিকেটের তথ্য এই ইমেইলে পাঠানো হবে
+                            </div>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label>
+                                <i class="fas fa-user-tag"></i> ইউজারনেম | Username 
+                                <span class="required-star">*</span>
+                            </label>
+                            <input type="text" name="username" required 
+                                   placeholder="একটি ইউজারনেম দিন | Choose a username">
+                            <div class="form-text">
+                                <i class="fas fa-info-circle"></i>
+                                ভবিষ্যতে লগইনের জন্য ব্যবহার করা হবে
+                            </div>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label>
+                                <i class="fas fa-lock"></i> পাসওয়ার্ড | Password 
+                                <span class="required-star">*</span>
+                            </label>
+                            <input type="password" name="password" id="password" required 
+                                   placeholder="পাসওয়ার্ড তৈরি করুন | Create a password">
+                            <div class="password-strength">
+                                <div class="strength-bar">
+                                    <div class="strength-fill" id="strengthFill"></div>
+                                </div>
+                                <div class="strength-text" id="strengthText"></div>
+                            </div>
+                            <div class="form-text">
+                                <i class="fas fa-shield-alt"></i>
+                                পাসওয়ার্ডে কমপক্ষে ৬টি অক্ষর থাকতে হবে
+                            </div>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label>
+                                <i class="fas fa-check-circle"></i> পাসওয়ার্ড নিশ্চিত | Confirm Password 
+                                <span class="required-star">*</span>
+                            </label>
+                            <input type="password" name="confirm_password" id="confirmPassword" required 
+                                   placeholder="পাসওয়ার্ড পুনরায় লিখুন | Re-enter password">
+                            <div class="form-text" id="passwordMatchMsg"></div>
+                        </div>
+                        
+                        <button type="submit" class="btn-register" id="submitBtn">
+                            <i class="fas fa-user-check"></i> নিবন্ধন করুন | Register Now
+                        </button>
+                        
+                        <a href="/" class="btn-back">
+                            <i class="fas fa-arrow-left"></i> হোমে ফিরুন | Back to Home
+                        </a>
+                    </form>
+                    
+                    <div class="divider">
+                        <span>অথবা | Or</span>
+                    </div>
+                    
+                    <div class="guest-link">
+                        <a href="/">
+                            <i class="fas fa-user-friends"></i>
+                            অতিথি হিসাবে টিকেট বুক করুন | Book as Guest
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Footer -->
+    <div class="footer">
+        <div class="container">
+            <div class="footer-bottom">
+                <p>© 2026 বাংলাদেশ রেলওয়ে | Bangladesh Railway Reservation System</p>
+                <p>DBMS Project | Database Management System Project</p>
+            </div>
+        </div>
+    </div>
+    
+    <script>
+        // Password Strength Checker
+        const passwordInput = document.getElementById('password');
+        const confirmInput = document.getElementById('confirmPassword');
+        const strengthFill = document.getElementById('strengthFill');
+        const strengthText = document.getElementById('strengthText');
+        const passwordMatchMsg = document.getElementById('passwordMatchMsg');
+        const submitBtn = document.getElementById('submitBtn');
+        
+        function checkPasswordStrength(password) {
+            let strength = 0;
+            let message = '';
+            let color = '';
+            
+            if (password.length >= 6) strength += 1;
+            if (password.length >= 8) strength += 1;
+            if (/[A-Z]/.test(password)) strength += 1;
+            if (/[0-9]/.test(password)) strength += 1;
+            if (/[^A-Za-z0-9]/.test(password)) strength += 1;
+            
+            switch(strength) {
+                case 0:
+                case 1:
+                    message = 'দুর্বল | Weak';
+                    color = '#e74c3c';
+                    break;
+                case 2:
+                    message = 'মাঝারি | Fair';
+                    color = '#f39c12';
+                    break;
+                case 3:
+                    message = 'ভালো | Good';
+                    color = '#3498db';
+                    break;
+                case 4:
+                case 5:
+                    message = 'শক্তিশালী | Strong';
+                    color = '#27ae60';
+                    break;
+            }
+            
+            if (password.length === 0) {
+                message = '';
+                color = '#e5e7eb';
+                strengthFill.style.width = '0%';
+            } else {
+                strengthFill.style.width = (strength * 20) + '%';
+            }
+            
+            strengthFill.style.backgroundColor = color;
+            strengthText.textContent = message;
+            strengthText.style.color = color;
+        }
+        
+        function checkPasswordMatch() {
+            const password = passwordInput.value;
+            const confirm = confirmInput.value;
+            
+            if (confirm.length === 0) {
+                passwordMatchMsg.innerHTML = '<i class="fas fa-info-circle"></i> পাসওয়ার্ড নিশ্চিত করুন | Confirm your password';
+                passwordMatchMsg.style.color = '#888';
+                return false;
+            }
+            
+            if (password === confirm) {
+                passwordMatchMsg.innerHTML = '<i class="fas fa-check-circle" style="color: #27ae60;"></i> পাসওয়ার্ড মিলেছে | Passwords match';
+                passwordMatchMsg.style.color = '#27ae60';
+                return true;
+            } else {
+                passwordMatchMsg.innerHTML = '<i class="fas fa-times-circle" style="color: #e74c3c;"></i> পাসওয়ার্ড মেলেনি | Passwords do not match';
+                passwordMatchMsg.style.color = '#e74c3c';
+                return false;
+            }
+        }
+        
+        function validateForm() {
+            const password = passwordInput.value;
+            const confirm = confirmInput.value;
+            
+            if (password.length < 6) {
+                alert('পাসওয়ার্ড কমপক্ষে ৬ অক্ষরের হতে হবে | Password must be at least 6 characters');
+                return false;
+            }
+            
+            if (password !== confirm) {
+                alert('পাসওয়ার্ড মেলেনি | Passwords do not match');
+                return false;
+            }
+            
+            return true;
+        }
+        
+        passwordInput.addEventListener('input', function() {
+            checkPasswordStrength(this.value);
+            checkPasswordMatch();
+        });
+        
+        confirmInput.addEventListener('input', checkPasswordMatch);
+        
+        document.getElementById('registerForm').addEventListener('submit', function(e) {
+            if (!validateForm()) {
+                e.preventDefault();
+            }
+        });
+    </script>
+</body>
+</html>

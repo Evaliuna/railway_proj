@@ -1,0 +1,600 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>বুক টিকেট | Bangladesh Railway</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Inter', sans-serif;
+            background: #f0f2f5;
+            min-height: 100vh;
+        }
+        
+        /* Header */
+        .header {
+            background: linear-gradient(135deg, #0b2b26 0%, #1a4d3e 50%, #0f2c26 100%);
+            position: relative;
+            overflow: hidden;
+            padding: 30px 0;
+        }
+        
+        .header::after {
+            content: '🎫';
+            position: absolute;
+            bottom: 10px;
+            right: 20px;
+            font-size: 100px;
+            opacity: 0.05;
+            pointer-events: none;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 30px;
+            position: relative;
+            z-index: 2;
+        }
+        
+        /* Navbar */
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 0;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+        
+        .logo h1 {
+            color: white;
+            font-size: 1.5rem;
+            font-weight: 700;
+        }
+        
+        .logo p {
+            color: rgba(255,255,255,0.7);
+            font-size: 0.8rem;
+        }
+        
+        .nav-links {
+            display: flex;
+            gap: 15px;
+        }
+        
+        .nav-btn {
+            padding: 8px 20px;
+            border-radius: 10px;
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 0.9rem;
+        }
+        
+        .nav-btn-outline {
+            border: 1px solid rgba(255,255,255,0.3);
+            color: white;
+            background: rgba(255,255,255,0.1);
+        }
+        
+        .nav-btn-outline:hover {
+            background: rgba(255,255,255,0.2);
+            transform: translateY(-2px);
+        }
+        
+        /* Main Content */
+        .main-content {
+            padding: 40px 0 60px;
+        }
+        
+        /* Booking Card */
+        .booking-card {
+            background: white;
+            border-radius: 24px;
+            overflow: hidden;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.08);
+        }
+        
+        .card-header {
+            background: linear-gradient(135deg, #1a4d3e, #0b2b26);
+            color: white;
+            padding: 30px;
+            text-align: center;
+        }
+        
+        .card-header h2 {
+            font-size: 1.8rem;
+            margin-bottom: 8px;
+        }
+        
+        .card-header p {
+            opacity: 0.9;
+        }
+        
+        /* Train Details */
+        .train-details {
+            padding: 30px;
+            background: #f8f9fa;
+            border-bottom: 1px solid #e5e7eb;
+        }
+        
+        .train-details h3 {
+            font-size: 1.3rem;
+            color: #1a2f2a;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .details-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+        }
+        
+        .detail-item {
+            background: white;
+            padding: 15px;
+            border-radius: 16px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+            transition: transform 0.3s;
+        }
+        
+        .detail-item:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+        }
+        
+        .detail-label {
+            font-size: 0.8rem;
+            color: #888;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 8px;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+        
+        .detail-value {
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: #1a2f2a;
+        }
+        
+        .price-value {
+            font-size: 1.5rem;
+            font-weight: 800;
+            color: #1a4d3e;
+        }
+        
+        /* Form Section */
+        .form-section {
+            padding: 30px;
+        }
+        
+        .form-section h3 {
+            font-size: 1.3rem;
+            color: #1a2f2a;
+            margin-bottom: 25px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .form-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 25px;
+        }
+        
+        .form-group {
+            margin-bottom: 5px;
+        }
+        
+        .form-group.full-width {
+            grid-column: span 2;
+        }
+        
+        label {
+            display: block;
+            font-size: 0.85rem;
+            font-weight: 600;
+            color: #1a2f2a;
+            margin-bottom: 8px;
+        }
+        
+        label i {
+            color: #1a4d3e;
+            width: 20px;
+        }
+        
+        input, select {
+            width: 100%;
+            padding: 14px 16px;
+            border: 2px solid #e5e7eb;
+            border-radius: 12px;
+            font-size: 1rem;
+            transition: all 0.3s;
+            font-family: inherit;
+            background: white;
+        }
+        
+        input:focus, select:focus {
+            outline: none;
+            border-color: #1a4d3e;
+            box-shadow: 0 0 0 3px rgba(26,77,62,0.1);
+        }
+        
+        /* Payment Methods */
+        .payment-methods {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 15px;
+            margin-top: 10px;
+        }
+        
+        .payment-option {
+            position: relative;
+        }
+        
+        .payment-option input {
+            position: absolute;
+            opacity: 0;
+        }
+        
+        .payment-label {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            padding: 12px;
+            border: 2px solid #e5e7eb;
+            border-radius: 12px;
+            cursor: pointer;
+            transition: all 0.3s;
+            background: white;
+        }
+        
+        .payment-option input:checked + .payment-label {
+            border-color: #1a4d3e;
+            background: linear-gradient(135deg, #e8f0fe, #fff);
+            color: #1a4d3e;
+        }
+        
+        .payment-label:hover {
+            border-color: #1a4d3e;
+            transform: translateY(-2px);
+        }
+        
+        /* Action Buttons */
+        .action-buttons {
+            display: flex;
+            gap: 15px;
+            margin-top: 30px;
+            padding-top: 20px;
+            border-top: 2px solid #e5e7eb;
+        }
+        
+        .btn-submit {
+            flex: 1;
+            background: linear-gradient(135deg, #1a4d3e, #0b2b26);
+            color: white;
+            border: none;
+            padding: 14px;
+            border-radius: 12px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            font-family: inherit;
+        }
+        
+        .btn-submit:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 20px rgba(26,77,62,0.3);
+        }
+        
+        .btn-cancel {
+            flex: 0.5;
+            background: #f8f9fa;
+            color: #666;
+            border: 2px solid #e5e7eb;
+            padding: 14px;
+            border-radius: 12px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            text-decoration: none;
+            text-align: center;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+        
+        .btn-cancel:hover {
+            background: #fee2e2;
+            border-color: #e74c3c;
+            color: #e74c3c;
+        }
+        
+        /* Flash Messages */
+        .flash-messages {
+            margin-bottom: 20px;
+        }
+        
+        .alert {
+            padding: 16px 20px;
+            border-radius: 12px;
+            margin-bottom: 15px;
+            animation: slideIn 0.5s ease;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        
+        .alert-success {
+            background: #d4edda;
+            color: #155724;
+            border-left: 4px solid #27ae60;
+        }
+        
+        .alert-danger {
+            background: #f8d7da;
+            color: #721c24;
+            border-left: 4px solid #e74c3c;
+        }
+        
+        @keyframes slideIn {
+            from {
+                transform: translateY(-20px);
+                opacity: 0;
+            }
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+        
+        /* Footer */
+        .footer {
+            background: #0a1f1b;
+            color: white;
+            padding: 30px 0 20px;
+            margin-top: 40px;
+        }
+        
+        .footer-bottom {
+            text-align: center;
+            padding-top: 20px;
+            border-top: 1px solid rgba(255,255,255,0.1);
+            color: rgba(255,255,255,0.6);
+            font-size: 0.85rem;
+        }
+        
+        /* Responsive */
+        @media (max-width: 768px) {
+            .container {
+                padding: 0 20px;
+            }
+            
+            .form-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .form-group.full-width {
+                grid-column: span 1;
+            }
+            
+            .details-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .action-buttons {
+                flex-direction: column;
+            }
+            
+            .navbar {
+                flex-direction: column;
+                text-align: center;
+            }
+            
+            .card-header h2 {
+                font-size: 1.3rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <div class="header">
+        <div class="container">
+            <div class="navbar">
+                <div class="logo">
+                    <h1><i class="fas fa-train"></i> বাংলাদেশ রেলওয়ে</h1>
+                    <p>Bangladesh Railway | ট্রেন টিকেট বুকিং সিস্টেম</p>
+                </div>
+                <div class="nav-links">
+                    <a href="/" class="nav-btn nav-btn-outline"><i class="fas fa-home"></i> হোম</a>
+                    <a href="/bookings" class="nav-btn nav-btn-outline"><i class="fas fa-ticket-alt"></i> আমার টিকেট</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="nav-links">
+    <a href="/" class="nav-btn nav-btn-outline"><i class="fas fa-home"></i> হোম</a>
+    <a href="/bookings" class="nav-btn nav-btn-outline"><i class="fas fa-ticket-alt"></i> আমার টিকেট</a>
+    <a href="/about" class="nav-btn nav-btn-outline"><i class="fas fa-info-circle"></i> আমাদের সম্পর্কে</a>
+</div>
+    <!-- Main Content -->
+    <div class="main-content">
+        <div class="container">
+            <!-- Flash Messages -->
+            {% with messages = get_flashed_messages(with_categories=true) %}
+                {% if messages %}
+                    <div class="flash-messages">
+                        {% for category, message in messages %}
+                            <div class="alert alert-{{ category }}">
+                                <i class="fas fa-{{ 'check-circle' if category == 'success' else 'exclamation-circle' }}"></i>
+                                {{ message }}
+                            </div>
+                        {% endfor %}
+                    </div>
+                {% endif %}
+            {% endwith %}
+            
+            <!-- Booking Card -->
+            <div class="booking-card">
+                <div class="card-header">
+                    <h2><i class="fas fa-ticket-alt"></i> টিকেট বুক করুন</h2>
+                    <p>Book Your Ticket | যাত্রার তথ্য দিন</p>
+                </div>
+                
+                <!-- Train Details -->
+                <div class="train-details">
+                    <h3><i class="fas fa-train"></i> যাত্রার বিবরণ | Journey Details</h3>
+                    <div class="details-grid">
+                        <div class="detail-item">
+                            <div class="detail-label"><i class="fas fa-subway"></i> ট্রেন | Train</div>
+                            <div class="detail-value"><strong>{{ schedule.TrainName }}</strong> ({{ schedule.TrainNumber }})</div>
+                        </div>
+                        <div class="detail-item">
+                            <div class="detail-label"><i class="fas fa-route"></i> রুট | Route</div>
+                            <div class="detail-value">{{ schedule.SourceStation }} → {{ schedule.DestinationStation }}</div>
+                        </div>
+                        <div class="detail-item">
+                            <div class="detail-label"><i class="fas fa-clock"></i> ছাড়ার সময় | Departure</div>
+                            <div class="detail-value">{{ schedule.DepartureTime }}</div>
+                        </div>
+                        <div class="detail-item">
+                            <div class="detail-label"><i class="fas fa-clock"></i> পৌঁছানোর সময় | Arrival</div>
+                            <div class="detail-value">{{ schedule.ArrivalTime }}</div>
+                        </div>
+                        <div class="detail-item">
+                            <div class="detail-label"><i class="fas fa-chair"></i> শ্রেণী | Class</div>
+                            <div class="detail-value">{{ schedule.ClassType }}</div>
+                        </div>
+                        <div class="detail-item">
+                            <div class="detail-label"><i class="fas fa-money-bill-wave"></i> ভাড়া | Fare</div>
+                            <div class="detail-value price-value">৳{{ "%.2f"|format(schedule.TotalAmount) }}</div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Booking Form -->
+                <div class="form-section">
+                    <h3><i class="fas fa-user-circle"></i> যাত্রীর তথ্য | Passenger Details</h3>
+                    <form method="POST">
+                        <div class="form-grid">
+                            <div class="form-group full-width">
+                                <label><i class="fas fa-user"></i> পূর্ণ নাম | Full Name *</label>
+                                <input type="text" name="fullname" required placeholder="যাত্রীর পূর্ণ নাম লিখুন | Enter passenger's full name">
+                            </div>
+                            
+                            <div class="form-group">
+                                <label><i class="fas fa-calendar-alt"></i> জন্ম তারিখ | Date of Birth *</label>
+                                <input type="date" name="dob" required>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label><i class="fas fa-venus-mars"></i> লিঙ্গ | Gender *</label>
+                                <select name="gender" required>
+                                    <option value="">লিঙ্গ নির্বাচন করুন</option>
+                                    <option value="Male">পুরুষ | Male</option>
+                                    <option value="Female">মহিলা | Female</option>
+                                    <option value="Other">অন্যান্য | Other</option>
+                                </select>
+                            </div>
+                            
+                            <div class="form-group full-width">
+                                <label><i class="fas fa-passport"></i> পাসপোর্ট/এনআইডি নম্বর | Passport/NID Number *</label>
+                                <input type="text" name="passport" required placeholder="পাসপোর্ট বা এনআইডি নম্বর দিন">
+                            </div>
+                            
+                            <div class="form-group full-width">
+                                <label><i class="fas fa-credit-card"></i> পেমেন্ট পদ্ধতি | Payment Method *</label>
+                                <div class="payment-methods">
+                                    <div class="payment-option">
+                                        <input type="radio" name="payment_method" value="Credit Card" id="credit" required>
+                                        <label for="credit" class="payment-label">
+                                            <i class="fas fa-credit-card"></i> Credit Card
+                                        </label>
+                                    </div>
+                                    <div class="payment-option">
+                                        <input type="radio" name="payment_method" value="Debit Card" id="debit">
+                                        <label for="debit" class="payment-label">
+                                            <i class="fas fa-credit-card"></i> Debit Card
+                                        </label>
+                                    </div>
+                                    <div class="payment-option">
+                                        <input type="radio" name="payment_method" value="bKash" id="bkash">
+                                        <label for="bkash" class="payment-label">
+                                            <i class="fas fa-mobile-alt"></i> bKash
+                                        </label>
+                                    </div>
+                                    <div class="payment-option">
+                                        <input type="radio" name="payment_method" value="Nagad" id="nagad">
+                                        <label for="nagad" class="payment-label">
+                                            <i class="fas fa-mobile-alt"></i> Nagad
+                                        </label>
+                                    </div>
+                                    <div class="payment-option">
+                                        <input type="radio" name="payment_method" value="Rocket" id="rocket">
+                                        <label for="rocket" class="payment-label">
+                                            <i class="fas fa-mobile-alt"></i> Rocket
+                                        </label>
+                                    </div>
+                                    <div class="payment-option">
+                                        <input type="radio" name="payment_method" value="Cash" id="cash">
+                                        <label for="cash" class="payment-label">
+                                            <i class="fas fa-money-bill"></i> Cash
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="action-buttons">
+                            <button type="submit" class="btn-submit">
+                                <i class="fas fa-check-circle"></i> টিকেট বুক করুন | Confirm Booking
+                            </button>
+                            <a href="/" class="btn-cancel">
+                                <i class="fas fa-arrow-left"></i> বাতিল | Cancel
+                            </a>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Footer -->
+    <div class="footer">
+        <div class="container">
+            <div class="footer-bottom">
+                <p>© 2026 বাংলাদেশ রেলওয়ে | Bangladesh Railway Reservation System</p>
+                <p>DBMS Project | Database Management System Project</p>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

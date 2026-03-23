@@ -1,0 +1,824 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bangladesh Railway | ট্রেন টিকেট বুকিং</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+   <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Inter', sans-serif;
+            background: #f0f2f5;
+            overflow-x: hidden;
+        }
+        
+        /* Hero Section */
+        .hero {
+            background: linear-gradient(135deg, #0b2b26 0%, #1a4d3e 50%, #0f2c26 100%);
+            position: relative;
+            overflow: hidden;
+            padding: 30px 0 50px;
+        }
+        
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -20%;
+            width: 70%;
+            height: 200%;
+            background: linear-gradient(135deg, rgba(255,255,255,0.05) 0%, rgba(255,255,255,0) 100%);
+            transform: rotate(15deg);
+            pointer-events: none;
+        }
+        
+        .hero::after {
+            content: '🚂';
+            position: absolute;
+            bottom: 10px;
+            left: 20px;
+            font-size: 150px;
+            opacity: 0.03;
+            pointer-events: none;
+        }
+        
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 30px;
+            position: relative;
+            z-index: 2;
+        }
+        
+        /* Navbar - IMPROVED */
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 0;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+            margin-bottom: 30px;
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+        
+        .logo h1 {
+            color: white;
+            font-size: 1.4rem;
+            font-weight: 700;
+        }
+        
+        .logo p {
+            color: rgba(255,255,255,0.7);
+            font-size: 0.7rem;
+        }
+        
+        /* Nav Links - FIXED - Keeps buttons on one line */
+        .nav-links {
+            display: flex;
+            gap: 10px;
+            flex-wrap: nowrap;
+        }
+        
+        .nav-btn {
+            padding: 8px 16px;
+            border-radius: 10px;
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            font-size: 0.85rem;
+            white-space: nowrap;
+        }
+        
+        .nav-btn-outline {
+            border: 1px solid rgba(255,255,255,0.3);
+            color: white;
+            background: rgba(255,255,255,0.1);
+        }
+        
+        .nav-btn-outline:hover {
+            background: rgba(255,255,255,0.2);
+            border-color: rgba(255,255,255,0.5);
+            transform: translateY(-2px);
+        }
+        
+        .nav-btn-primary {
+            background: #f5a623;
+            color: #0b2b26;
+        }
+        
+        .nav-btn-primary:hover {
+            background: #f39c12;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 20px rgba(245,166,35,0.3);
+        }
+        
+        /* Hero Content */
+        .hero-content {
+            text-align: center;
+            color: white;
+            padding: 30px 0;
+        }
+        
+        .hero-content h2 {
+            font-size: 2.5rem;
+            font-weight: 800;
+            margin-bottom: 15px;
+        }
+        
+        .hero-content p {
+            font-size: 1rem;
+            opacity: 0.9;
+            margin-bottom: 25px;
+        }
+        
+        .stats {
+            display: flex;
+            justify-content: center;
+            gap: 40px;
+            margin-top: 25px;
+        }
+        
+        .stat {
+            text-align: center;
+        }
+        
+        .stat-number {
+            font-size: 1.8rem;
+            font-weight: 800;
+        }
+        
+        .stat-label {
+            font-size: 0.8rem;
+            opacity: 0.8;
+        }
+        
+        /* Main Content */
+        .main-content {
+            margin-top: -30px;
+            padding: 0 30px 60px;
+        }
+        
+        /* Search Section */
+        .search-section {
+            background: white;
+            border-radius: 24px;
+            padding: 25px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.08);
+            margin-bottom: 40px;
+        }
+        
+        .search-title {
+            font-size: 1.2rem;
+            font-weight: 600;
+            color: #1a2f2a;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .search-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr auto;
+            gap: 15px;
+            align-items: end;
+        }
+        
+        .search-input {
+            flex: 1;
+        }
+        
+        .search-input label {
+            display: block;
+            font-size: 0.8rem;
+            font-weight: 500;
+            color: #666;
+            margin-bottom: 8px;
+        }
+        
+        .search-input input, .search-input select {
+            width: 100%;
+            padding: 10px 14px;
+            border: 2px solid #e5e7eb;
+            border-radius: 12px;
+            font-size: 0.95rem;
+            transition: all 0.3s;
+            font-family: inherit;
+        }
+        
+        .search-input input:focus, .search-input select:focus {
+            outline: none;
+            border-color: #1a4d3e;
+            box-shadow: 0 0 0 3px rgba(26,77,62,0.1);
+        }
+        
+        .search-btn {
+            background: linear-gradient(135deg, #1a4d3e, #0b2b26);
+            color: white;
+            border: none;
+            padding: 10px 28px;
+            border-radius: 12px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-family: inherit;
+        }
+        
+        .search-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 20px rgba(26,77,62,0.3);
+        }
+        
+        /* Train Cards */
+        .trains-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 25px;
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+        
+        .trains-header h3 {
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: #1a2f2a;
+        }
+        
+        .filter-buttons {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+        
+        .filter-btn {
+            padding: 6px 16px;
+            border: 1px solid #e5e7eb;
+            background: white;
+            border-radius: 30px;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-weight: 500;
+            font-size: 0.85rem;
+        }
+        
+        .filter-btn.active, .filter-btn:hover {
+            background: #1a4d3e;
+            color: white;
+            border-color: #1a4d3e;
+        }
+        
+        /* Train Cards Grid */
+        .trains-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(360px, 1fr));
+            gap: 24px;
+        }
+        
+        .train-card {
+            background: white;
+            border-radius: 20px;
+            overflow: hidden;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+            border: 1px solid rgba(0,0,0,0.05);
+        }
+        
+        .train-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+        }
+        
+        .card-header {
+            background: linear-gradient(135deg, #f8f9fa, #fff);
+            padding: 16px;
+            border-bottom: 1px solid #f0f0f0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .train-info h4 {
+            font-size: 1.1rem;
+            font-weight: 700;
+            color: #1a2f2a;
+        }
+        
+        .train-number {
+            font-size: 0.75rem;
+            color: #888;
+            margin-top: 4px;
+        }
+        
+        .class-badge {
+            background: #e8f0fe;
+            color: #1a4d3e;
+            padding: 4px 10px;
+            border-radius: 20px;
+            font-size: 0.75rem;
+            font-weight: 600;
+        }
+        
+        .card-body {
+            padding: 16px;
+        }
+        
+        .route {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 16px;
+        }
+        
+        .station {
+            text-align: center;
+        }
+        
+        .station-name {
+            font-weight: 700;
+            font-size: 0.95rem;
+            color: #1a2f2a;
+        }
+        
+        .station-time {
+            font-size: 0.75rem;
+            color: #666;
+            margin-top: 4px;
+        }
+        
+        .route-line {
+            flex: 1;
+            margin: 0 15px;
+            position: relative;
+        }
+        
+        .route-line hr {
+            border: none;
+            height: 2px;
+            background: linear-gradient(90deg, #1a4d3e, #f5a623, #1a4d3e);
+        }
+        
+        .route-line i {
+            position: absolute;
+            top: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            color: #f5a623;
+            background: white;
+            padding: 0 5px;
+            font-size: 0.8rem;
+        }
+        
+        .price-section {
+            display: flex;
+            justify-content: space-between;
+            align-items: baseline;
+            margin-bottom: 16px;
+            padding-top: 12px;
+            border-top: 1px solid #f0f0f0;
+        }
+        
+        .price {
+            font-size: 1.3rem;
+            font-weight: 800;
+            color: #1a4d3e;
+        }
+        
+        .price small {
+            font-size: 0.7rem;
+            font-weight: normal;
+            color: #888;
+        }
+        
+        .seats {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            font-size: 0.85rem;
+        }
+        
+        .seats-available {
+            color: #27ae60;
+            font-weight: 600;
+        }
+        
+        .seats-low {
+            color: #e67e22;
+            font-weight: 600;
+        }
+        
+        .seats-full {
+            color: #e74c3c;
+            font-weight: 600;
+        }
+        
+        .card-footer {
+            padding: 12px 16px 16px;
+            border-top: 1px solid #f0f0f0;
+        }
+        
+        .book-btn {
+            width: 100%;
+            background: linear-gradient(135deg, #1a4d3e, #0b2b26);
+            color: white;
+            border: none;
+            padding: 10px;
+            border-radius: 12px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            font-family: inherit;
+            text-decoration: none;
+            font-size: 0.9rem;
+        }
+        
+        .book-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 20px rgba(26,77,62,0.4);
+        }
+        
+        .book-btn.disabled {
+            background: #ccc;
+            cursor: not-allowed;
+        }
+        
+        /* Flash Messages */
+        .flash-messages {
+            margin-bottom: 20px;
+        }
+        
+        .alert {
+            padding: 14px 18px;
+            border-radius: 12px;
+            margin-bottom: 15px;
+            animation: slideIn 0.5s ease;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 0.9rem;
+        }
+        
+        .alert-success {
+            background: #d4edda;
+            color: #155724;
+            border-left: 4px solid #27ae60;
+        }
+        
+        .alert-danger {
+            background: #f8d7da;
+            color: #721c24;
+            border-left: 4px solid #e74c3c;
+        }
+        
+        @keyframes slideIn {
+            from {
+                transform: translateY(-20px);
+                opacity: 0;
+            }
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+        
+        /* Footer */
+        .footer {
+            background: #0a1f1b;
+            color: white;
+            padding: 30px 0 20px;
+            margin-top: 50px;
+        }
+        
+        .footer-content {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 30px;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 30px;
+        }
+        
+        .footer-section h4 {
+            margin-bottom: 12px;
+            font-size: 1rem;
+        }
+        
+        .footer-section p {
+            color: rgba(255,255,255,0.7);
+            line-height: 1.5;
+            font-size: 0.85rem;
+        }
+        
+        .footer-bottom {
+            text-align: center;
+            padding-top: 25px;
+            margin-top: 25px;
+            border-top: 1px solid rgba(255,255,255,0.1);
+            color: rgba(255,255,255,0.6);
+            font-size: 0.8rem;
+        }
+        
+        /* Responsive Design - FIXED */
+        @media (max-width: 992px) {
+            .navbar {
+                flex-direction: column;
+                text-align: center;
+            }
+            
+            .nav-links {
+                justify-content: center;
+                flex-wrap: wrap;
+            }
+            
+            .search-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .container {
+                padding: 0 20px;
+            }
+            
+            .hero-content h2 {
+                font-size: 1.5rem;
+            }
+            
+            .hero-content p {
+                font-size: 0.9rem;
+            }
+            
+            .trains-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .stats {
+                flex-direction: column;
+                gap: 15px;
+            }
+            
+            .stat-number {
+                font-size: 1.5rem;
+            }
+            
+            .nav-btn {
+                padding: 6px 12px;
+                font-size: 0.75rem;
+            }
+            
+            .nav-links {
+                gap: 8px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Hero Section -->
+    <div class="hero">
+        <div class="container">
+            <div class="navbar">
+                <div class="logo">
+                    <h1><i class="fas fa-train"></i> বাংলাদেশ রেলওয়ে</h1>
+                    <p>Bangladesh Railway | ট্রেন টিকেট বুকিং সিস্টেম</p>
+                </div>
+                <div class="nav-links">
+                    <a href="/" class="nav-btn nav-btn-outline"><i class="fas fa-home"></i> হোম</a>
+                    <a href="/bookings" class="nav-btn nav-btn-outline"><i class="fas fa-ticket-alt"></i> আমার টিকেট</a>
+                    <a href="/register" class="nav-btn nav-btn-primary"><i class="fas fa-user-plus"></i> নিবন্ধন</a>
+                    <a href="/about" class="nav-btn nav-btn-primary"><i class="fas fa-info-circle"></i> আমাদের সম্পর্কে</a>
+                </div>
+            </div>
+            
+            <div class="hero-content">
+                <h2>সহজে, দ্রুত, নিরাপদে</h2>
+                <p>অনলাইনে ট্রেনের টিকেট বুক করুন | Book your train tickets online with ease</p>
+                <div class="stats">
+                    <div class="stat">
+                        <div class="stat-number">100+</div>
+                        <div class="stat-label">Daily Trains</div>
+                    </div>
+                    <div class="stat">
+                        <div class="stat-number">50K+</div>
+                        <div class="stat-label">Happy Passengers</div>
+                    </div>
+                    <div class="stat">
+                        <div class="stat-number">24/7</div>
+                        <div class="stat-label">Customer Support</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Main Content -->
+    <div class="main-content">
+        <div class="container">
+            <!-- Search Section -->
+            <div class="search-section">
+                <div class="search-title">
+                    <i class="fas fa-search" style="color: #1a4d3e;"></i>
+                    <span>খুঁজুন আপনার ট্রেন | Find Your Train</span>
+                </div>
+                <div class="search-grid">
+                    <div class="search-input">
+                        <label><i class="fas fa-map-marker-alt"></i> থেকে | From</label>
+                        <select id="fromStation">
+                            <option value="">সব স্টেশন | All Stations</option>
+                            {% set stations = [] %}
+                            {% for schedule in schedules %}
+                                {% if schedule.SourceStation not in stations %}
+                                    <option value="{{ schedule.SourceStation }}">{{ schedule.SourceStation }}</option>
+                                    {% set _ = stations.append(schedule.SourceStation) %}
+                                {% endif %}
+                            {% endfor %}
+                        </select>
+                    </div>
+                    <div class="search-input">
+                        <label><i class="fas fa-map-marker-alt"></i> থেকে | To</label>
+                        <select id="toStation">
+                            <option value="">সব স্টেশন | All Stations</option>
+                            {% set destStations = [] %}
+                            {% for schedule in schedules %}
+                                {% if schedule.DestinationStation not in destStations %}
+                                    <option value="{{ schedule.DestinationStation }}">{{ schedule.DestinationStation }}</option>
+                                    {% set _ = destStations.append(schedule.DestinationStation) %}
+                                {% endif %}
+                            {% endfor %}
+                        </select>
+                    </div>
+                    <button class="search-btn" onclick="filterTrains()"><i class="fas fa-search"></i> খুঁজুন | Search</button>
+                </div>
+            </div>
+            
+            <!-- Flash Messages -->
+            {% with messages = get_flashed_messages(with_categories=true) %}
+                {% if messages %}
+                    <div class="flash-messages">
+                        {% for category, message in messages %}
+                            <div class="alert alert-{{ category }}">
+                                <i class="fas fa-{{ 'check-circle' if category == 'success' else 'exclamation-circle' }}"></i>
+                                {{ message }}
+                            </div>
+                        {% endfor %}
+                    </div>
+                {% endif %}
+            {% endwith %}
+            
+            <!-- Trains Header -->
+            <div class="trains-header">
+                <h3><i class="fas fa-clock"></i> উপলব্ধ ট্রেন | Available Trains</h3>
+                <div class="filter-buttons">
+                    <button class="filter-btn active" onclick="filterByClass('all')">সব | All</button>
+                    <button class="filter-btn" onclick="filterByClass('Sleeper')">স্লিপার | Sleeper</button>
+                    <button class="filter-btn" onclick="filterByClass('AC')">এসি | AC</button>
+                </div>
+            </div>
+            
+            <!-- Train Cards Grid -->
+            <div class="trains-grid" id="trainsGrid">
+                {% for schedule in schedules %}
+                <div class="train-card" data-from="{{ schedule.SourceStation }}" data-to="{{ schedule.DestinationStation }}" data-class="{{ schedule.ClassType }}">
+                    <div class="card-header">
+                        <div class="train-info">
+                            <h4>{{ schedule.TrainName }}</h4>
+                            <div class="train-number">{{ schedule.TrainNumber }}</div>
+                        </div>
+                        <div class="class-badge">{{ schedule.ClassType }}</div>
+                    </div>
+                    <div class="card-body">
+                        <div class="route">
+                            <div class="station">
+                                <div class="station-name">{{ schedule.SourceStation }}</div>
+                                <div class="station-time">{{ schedule.DepartureTime.strftime('%I:%M %p') if schedule.DepartureTime else schedule.DepartureTime }}</div>
+                            </div>
+                            <div class="route-line">
+                                <hr>
+                                <i class="fas fa-train"></i>
+                            </div>
+                            <div class="station">
+                                <div class="station-name">{{ schedule.DestinationStation }}</div>
+                                <div class="station-time">{{ schedule.ArrivalTime.strftime('%I:%M %p') if schedule.ArrivalTime else schedule.ArrivalTime }}</div>
+                            </div>
+                        </div>
+                        <div class="price-section">
+                            <div>
+                                <span class="price">৳{{ "%.0f"|format(schedule.TotalAmount) }}</span>
+                                <small>/person</small>
+                            </div>
+                            <div class="seats">
+                                {% if schedule.AvailableSeats > 20 %}
+                                    <i class="fas fa-check-circle" style="color: #27ae60;"></i>
+                                    <span class="seats-available">{{ schedule.AvailableSeats }} seats</span>
+                                {% elif schedule.AvailableSeats > 0 %}
+                                    <i class="fas fa-exclamation-triangle" style="color: #e67e22;"></i>
+                                    <span class="seats-low">Only {{ schedule.AvailableSeats }} left!</span>
+                                {% else %}
+                                    <i class="fas fa-times-circle" style="color: #e74c3c;"></i>
+                                    <span class="seats-full">Fully Booked</span>
+                                {% endif %}
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-footer">
+                        {% if schedule.AvailableSeats > 0 %}
+                            <a href="/book/{{ schedule.ScheduleID }}" class="book-btn">
+                                <i class="fas fa-ticket-alt"></i> এখনই বুক করুন | Book Now
+                            </a>
+                        {% else %}
+                            <button class="book-btn disabled" disabled>
+                                <i class="fas fa-ban"></i> শেষ | Sold Out
+                            </button>
+                        {% endif %}
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+            
+            {% if schedules|length == 0 %}
+            <div style="text-align: center; padding: 60px 20px; background: white; border-radius: 20px;">
+                <i class="fas fa-train" style="font-size: 60px; color: #ccc;"></i>
+                <h3 style="margin-top: 20px; color: #666;">কোন ট্রেন পাওয়া যায়নি</h3>
+                <p style="color: #999;">No trains available at the moment. Please check back later.</p>
+            </div>
+            {% endif %}
+        </div>
+    </div>
+    
+    <!-- Footer -->
+    <div class="footer">
+        <div class="footer-content">
+            <div class="footer-section">
+                <h4><i class="fas fa-train"></i> বাংলাদেশ রেলওয়ে</h4>
+                <p>Bangladesh Railway Reservation System<br>সহজে ট্রেন টিকেট বুক করুন</p>
+            </div>
+            <div class="footer-section">
+                <h4><i class="fas fa-link"></i> লিংক | Links</h4>
+                <p><a href="/" style="color: rgba(255,255,255,0.7); text-decoration: none;">হোম | Home</a><br>
+                <a href="/bookings" style="color: rgba(255,255,255,0.7); text-decoration: none;">আমার টিকেট | My Bookings</a><br>
+                <a href="/register" style="color: rgba(255,255,255,0.7); text-decoration: none;">নিবন্ধন | Register</a></p>
+            </div>
+            <div class="footer-section">
+                <h4><i class="fas fa-phone"></i> যোগাযোগ | Contact</h4>
+                <p>হেল্পলাইন: ১৬২৩৪<br>
+                ইমেইল: help@railway.gov.bd</p>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>© 2026 বাংলাদেশ রেলওয়ে | Bangladesh Railway Reservation System</p>
+            <p>DBMS Project | Database Management System Project</p>
+        </div>
+    </div>
+    
+    <script>
+        function filterTrains() {
+            const fromStation = document.getElementById('fromStation').value;
+            const toStation = document.getElementById('toStation').value;
+            const cards = document.querySelectorAll('.train-card');
+            
+            cards.forEach(card => {
+                const cardFrom = card.getAttribute('data-from');
+                const cardTo = card.getAttribute('data-to');
+                let show = true;
+                
+                if (fromStation && cardFrom !== fromStation) show = false;
+                if (toStation && cardTo !== toStation) show = false;
+                
+                card.style.display = show ? 'block' : 'none';
+            });
+        }
+        
+        function filterByClass(className) {
+            const cards = document.querySelectorAll('.train-card');
+            const buttons = document.querySelectorAll('.filter-btn');
+            
+            buttons.forEach(btn => btn.classList.remove('active'));
+            event.target.classList.add('active');
+            
+            cards.forEach(card => {
+                const cardClass = card.getAttribute('data-class');
+                if (className === 'all' || cardClass === className || 
+                    (className === 'AC' && (cardClass === 'AC 3 Tier' || cardClass === 'AC 2 Tier'))) {
+                    card.style.display = 'block';
+                } else {
+                    card.style.display = 'none';
+                }
+            });
+        }
+    </script>
+</body>
+</html>
