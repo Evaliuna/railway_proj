@@ -67,10 +67,10 @@
         }
         
         .nav-links {
-            display: flex;
-            gap: 15px;
-        }
-        
+    display: flex;
+    gap: 12px;
+    flex-wrap: nowrap;  
+}
         .nav-btn {
             padding: 8px 20px;
             border-radius: 10px;
@@ -421,6 +421,7 @@
             .card-header h2 {
                 font-size: 1.3rem;
             }
+   
         }
     </style>
 </head>
@@ -436,15 +437,12 @@
                 <div class="nav-links">
                     <a href="/" class="nav-btn nav-btn-outline"><i class="fas fa-home"></i> হোম</a>
                     <a href="/bookings" class="nav-btn nav-btn-outline"><i class="fas fa-ticket-alt"></i> আমার টিকেট</a>
+                    <a href="/about" class="nav-btn nav-btn-outline"><i class="fas fa-info-circle"></i> আমাদের সম্পর্কে</a>
                 </div>
             </div>
         </div>
     </div>
-    <div class="nav-links">
-    <a href="/" class="nav-btn nav-btn-outline"><i class="fas fa-home"></i> হোম</a>
-    <a href="/bookings" class="nav-btn nav-btn-outline"><i class="fas fa-ticket-alt"></i> আমার টিকেট</a>
-    <a href="/about" class="nav-btn nav-btn-outline"><i class="fas fa-info-circle"></i> আমাদের সম্পর্কে</a>
-</div>
+   
     <!-- Main Content -->
     <div class="main-content">
         <div class="container">
