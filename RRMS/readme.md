@@ -14,7 +14,7 @@ A Flask-based web application for managing railway reservations. This system all
 
 - **Backend**: Python, Flask
 - **Database**: MySQL (using `mysql-connector-python`)
-- **Frontend**: HTML templates (Flask `render_template`)
+- **Frontend**: HTML , CSS  (Flask `render_template`)
 
 ## Setup Instructions
 
